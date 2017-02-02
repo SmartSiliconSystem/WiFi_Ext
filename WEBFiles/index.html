@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>NewTS</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="utils.js"></script>
+<script src="superagent.js"></script>
+</head><body>
+<table width="100%">
+  <tr>
+  <td align="left"><span id="LT14" class="formdatalabel"></span><input type="text" id="OnTime" class="formdata" style ="width:350px" disabled></td>
+  <td align="left"><a href="#" id="SleepModeButton" class="myButton" onClick="ToggleSleepMode();"><span id="BT4" class="SleepModeButtonLabel"></span></a></td>
+  <td align="right">
+    <select id="#Flag" style="width:95px;vertical-align:top" onChange="switchImage(this.options[this.selectedIndex].value);">
+      <option id="SO1" value="0"></option>
+      <option id="SO2" value="1"></option>
+      <option id="SO3" value="2"></option>
+      <option id="SO4" value="3"></option>
+      <option id="SO5" value="4"></option>
+      <option id="SO6" value="5"></option>
+      <option id="SO7" value="6"></option>
+    </select>
+    <img id="#FlagImage" name="#FlagImage" src="ar.png" style="width:50px;height:35px;"/>
+  </td>
+  </tr>
+</table>
+<ul class="tab">
+  <li><a href="javascript:void(0)" id="BT1" class="tablinks" onclick="openPage(this.id, 'WaterPage')"></a></li>
+  <li><a href="javascript:void(0)" id="BT2" class="tablinks" onclick="openPage(this.id, 'ElectrodesPage')"></a></li>
+  <li><a href="javascript:void(0)" id="BT3" class="tablinks" onclick="openPage(this.id, 'SettingsPage')"></a></li>
+</ul>
+
+<br>
+
+<div id="WaterPage" class="tabcontent">
+  <table>
+  <tr>
+  <td><span id="LT2" class="formdatalabel"></span></td>
+  <td><input type="text" id="WaterHardness" class="formdata" disabled> ppm</td>
+  </tr>
+  <tr>
+  <td><span id="LT5" class="formdatalabel"></span></td>
+  <td><input type="text" id="CopperReleased" class="formdata" disabled> ppm</td>
+  <td><div id="LT1" class="formdatalabel"></div></td>
+  <td><div id="meter" class="meter" style="width:150px">
+        <span id="ContainerCuLevel" style="width:20%;text-align:center"></span>
+      </div>
+  </td>
+  </tr>
+  <tr id="RTurbidity">
+  <td><span id="LT4" class="formdatalabel"></span></td>
+  <td><input type="text" id="Turbidity" class="formdata" disabled> NTU</td>
+  </tr>
+  <tr id="RPH">
+  <td><span id="LT3" class="formdatalabel"></span></td>
+  <td><input type="text" id="PH" class="formdata" disabled></td>
+  </tr>
+  <tr id="RWaterTemp">
+  <td><span id="LT6" class="formdatalabel"></span></td>
+  <td><input type="text" id="WaterTemp" class="formdata" disabled> deg</td>
+  </tr>
+  <tr id="RWaterFlow">
+  <td><span id="LT7" class="formdatalabel"></span></td>
+  <td><input type="text" id="WaterFlow" class="formdata" disabled> L/mn</td>
+  </tr>
+  <tr id="RWaterColor">
+  <td><span id="LT8" class="formdatalabel"></span></td>
+  <td><input type="text" id="WaterColor" class="formdata" style="background-color:#FFF111;" disabled></td>
+  </tr>
+  </table>
+</div>
+
+<div id="ElectrodesPage" class="tabcontent">
+  <table>
+  <tr>
+  <td>
+    <div id="LT15" class="formdatalabel"></div>
+  </td>
+  <td>
+    <div id="meter" class="meter" style="width:150px">
+      <span id="ElectrodeCuLevel" style="width:40%;text-align:center;"></span>
+    </div>
+  </td>
+  </tr>
+  </table>
+  <a href="#" id="BT6" class="myButton" onClick="ToggleHighCycle();"><span id="HighCycleButton" class="HighCycleButtonLabel"></span></a><br>
+  <!-- Copper electrode status -->
+  <!-- Titanium shorted -->
+  <!-- Copper shorted -->
+  <!-- Copper to replace -->
+</div>
+
+<div id="SettingsPage" class="tabcontent">
+  <table>
+  <tr>
+  <td><span id="LT10" class="formdatalabel"></span></td>
+  <td><input type="text"  id="ApplianceName" class="formdata" onchange="FormChange();"></td>
+  <td><span id="LT16" class="formdatalabel"></span></td>
+  <td><input type="text" id="StationSSID" class="formdata" onchange="FormChange();"></td>
+  </tr>
+  <tr>
+  <td><span id="LT9" class="formdatalabel"></span></td>
+  <td><input type="text" id="WaterVolume" class="formdata" onchange="FormChange();"> m3</td>
+  <td><span id="LT17" class="formdatalabel"></span></td>
+  <td><input type="text" id="StationPwd" class="formdata" onchange="FormChange();"></td>
+  </tr>
+  <tr>
+  <td><span id="LT11" class="formdatalabel"></span></td>
+  <td><input type="text" id="key1" class="formdata" onchange="FormChange();"><img id="#Key1Icon" name="#Key1Icon" src="Warning.png"></td>
+  <td><span id="LT18" class="formdatalabel"></span></td>
+  <td><input type="text" id="SoftAPSSID" class="formdata" onchange="FormChange();"></td>
+  </tr>
+  <tr>
+  <td><span id="LT12" class="formdatalabel"></span></td>
+  <td><input type="text" id="key2" class="formdata" onchange="FormChange();"><img id="#Key2Icon" name="#Key2Icon" src="Error.png"></td>
+  <td><span id="LT19" class="formdatalabel"></span></td>
+  <td><input type="text" id="SoftAPPwd" class="formdata" onchange="FormChange();"></td>
+  </tr>
+  <tr>
+  <td><span id="LT13" class="formdatalabel"></span></td>
+  <td><input type="text" id="key3" class="formdata" onchange="FormChange();"><img id="#Key3Icon" name="#Key3Icon" src="Valid.png"></td>
+  </tr>
+  </table>
+  <!-- Appliance version / Wifi version -->
+</div>
+
+  <!-- water flow -->
+  <!-- PH Probe calibrated/uncalibrated -->
+
+<script>    
+    // Entry point
+    window.onload = function() {
+      SetLanguage(language);
+      openPage('BT1', 'WaterPage');
+    }
+
+    var request = window.superagent;      
+    request.get('/getdata')
+    .set('Accept', 'application/json')
+    .end(function (error, res) 
+        {   
+          if (res.ok)
+          {
+              // Update MyAppliance
+              MyAppliance["Status"] = res.body.Status;
+              MyAppliance["WaterHardness"] = res.body.WaterHardness;
+              MyAppliance["CopperReleased"] = res.body.CopperReleased;
+              MyAppliance["CopperElectrodeMass"] = res.body.CopperElectrodeMass;
+
+              if ((MyAppliance["WaterHardness"] == 0) && (MyAppliance["Status"] & STATUS_BIT_COPPER_TO_REPLACE))
+              {
+                // No electrodes present, hide Electrode tab menu
+                $('BT2').style.display = "none";
+                $('ElectrodesPage').style.display = "none";
+              }
+              else
+              {
+                // Electrodes are present, show Electrode tab menu
+                $('BT2').style.display = "inline-block";
+                if (MyAppliance["CopperElectrodeMass"])
+                {
+                	setProgress($('ElectrodeCuLevel'), (MyAppliance["CopperElectrodeMass"]-MyAppliance["CopperReleased"])/MyAppliance["CopperElectrodeMass"]*100);
+                }
+                else
+                {
+                	setProgress($('ElectrodeCuLevel'), 0);                
+                }
+                $('WaterHardness').value = MyAppliance["WaterHardness"];
+                $('CopperReleased').value = MyAppliance["CopperReleased"];
+              }
+              MyAppliance["WaterVolume"] = res.body.WaterVolume;
+              MyAppliance["ApplianceName"] = res.body.ApplianceName;
+              MyAppliance["key1"] = res.body.key1;
+              MyAppliance["key2"] = res.body.key2;
+              MyAppliance["key3"] = res.body.key3;
+              
+              MyAppliance["StationSSID"] = res.body.StationSSID;
+              MyAppliance["StationPwd"] = res.body.StationPwd;
+              MyAppliance["SoftAPSSID"] = res.body.SoftAPSSID;
+              MyAppliance["SoftAPPwd"] = res.body.SoftAPPwd;
+              
+              MyAppliance["OnTime"] = res.body.OnTime;
+              //MyAppliance["ID"] = res.body.ID;
+              MyAppliance["Capabilities"] = res.body.Capabilities;
+              
+              if ((MyAppliance["Capabilities"] & CAPABILITIES_BIT_EXTSENSOR_VER) >> 15 > 0)
+              {
+                // Ext sensor appliance present
+                MyAppliance["PH"] = res.body.PH;
+                MyAppliance["Turbidity"] = res.body.Turbidity;
+                MyAppliance["WaterTemp"] = res.body.WaterTemp;
+                MyAppliance["WaterFlow"] = res.body.WaterFlow;
+                MyAppliance["WaterColor"] = res.body.WaterColor;
+                MyAppliance["ContainerCuLevel"] = res.body.ContainerCuLevel;
+				// Show WaterPage controls
+                $('RTurbidity').style.display = "";
+                $('RPH').style.display = "";
+                $('RWaterTemp').style.display = "";
+                $('RWaterFlow').style.display = "";
+                $('RWaterColor').style.display = "";
+                // update read only WaterPage fields
+                $('PH').value = res.body.PH;
+                $('Turbidity').value = res.body.Turbidity;
+                $('WaterTemp').value = res.body.WaterTemp;
+                $('WaterFlow').value = res.body.WaterFlow;
+                $('WaterColor').style.backgroundColor = res.body.WaterColor; // to be displayed as a color
+                setProgress($('ContainerCuLevel'), MyAppliance["ContainerCuLevel"]);
+              }
+              else
+              {
+                // No Ext sensor appliance: Hide unused WaterPage controls
+                $('RTurbidity').style.display = "none";
+                $('RPH').style.display = "none";
+                $('RWaterTemp').style.display = "none";
+                $('RWaterFlow').style.display = "none";
+                $('RWaterColor').style.display = "none";
+              }
+              // update writable fields
+              $('WaterVolume').value = MyAppliance["WaterVolume"];
+              $('ApplianceName').value = MyAppliance["ApplianceName"];
+              $('StationSSID').value = MyAppliance["StationSSID"];
+              $('StationPwd').value = MyAppliance["StationPwd"];
+              $('SoftAPSSID').value = MyAppliance["SoftAPSSID"];
+              $('SoftAPPwd').value = MyAppliance["SoftAPPwd"];
+              CheckForValidKey($('key1'), res.body.key1);
+              CheckForValidKey($('key2'), res.body.key2);
+              CheckForValidKey($('key3'), res.body.key3);
+              // update read only fields
+              $('OnTime').value = onTimeToTime(MyAppliance["OnTime"]);
+          }   
+        })
+
+      function FormChange(){
+        request.post('/senddata')
+        .set('Content-Type', 'application/json')
+        .send('{"Status":' + MyAppliance["Status"] 
+          +',"WaterVolume":' + $('WaterVolume').value 
+          +',"ApplianceName":"' + $('ApplianceName').value 
+          +'","key1":' + $('key1').value 
+          +',"key2":' + $('key2').value 
+          +',"key3":' + $('key3').value 
+          +',"StationSSID":"' + $('StationSSID').value 
+          +'","StationPwd":"' + $('StationPwd').value 
+          +'","SoftAPSSID":"' + $('SoftAPSSID').value 
+          +'","SoftAPPwd":"' + $('SoftAPPwd').value 
+          +'"}')
+        .end(function (error, res) 
+            {
+           
+            })
+      };
+ 
+  </script>
+  </body>
+</html>
